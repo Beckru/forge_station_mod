@@ -1,0 +1,72 @@
+{
+  "format_version": "1.9.0",
+  "credit": "Made with Blockbench",
+  "textures": {
+    "0": "forge_station:block/pasted",
+    "1": "forge_station:block/pasted2",
+    "2": "forge_station:block/pasted3",
+    "particle": "forge_station:block/pasted"
+  },
+  "elements": [
+    {
+      "from": [0, 8, 0],
+      "to": [16, 16, 16],
+      "rotation": {"angle": 0, "axis": "y", "origin": [0, 8, 0]},
+      "faces": {
+        "north": {"uv": [0, 0, 16, 8], "texture": "#1"},
+        "east": {"uv": [0, 0, 16, 8], "texture": "#1"},
+        "south": {"uv": [0, 0, 16, 8], "texture": "#1"},
+        "west": {"uv": [0, 0, 16, 8], "texture": "#1"},
+        "up": {"uv": [0, 0, 16, 16], "texture": "#0"},
+        "down": {"uv": [0, 0, 16, 16], "texture": "#0"}
+      }
+    },
+    {
+      "from": [2, 0, 2],
+      "to": [14, 4, 14],
+      "rotation": {"angle": 0, "axis": "y", "origin": [2, 0, 2]},
+      "faces": {
+        "north": {"uv": [0, 3, 16, 9], "texture": "#2"},
+        "east": {"uv": [0, 3, 16, 9], "texture": "#2"},
+        "south": {"uv": [0, 3, 16, 9], "texture": "#2"},
+        "west": {"uv": [0, 3, 16, 9], "texture": "#2"},
+        "up": {"uv": [0, 0, 12, 12], "texture": "#2"},
+        "down": {"uv": [0, 0, 12, 12], "texture": "#2"}
+      }
+    },
+    {
+      "from": [5, 4, 5],
+      "to": [11, 8, 11],
+      "rotation": {"angle": 0, "axis": "y", "origin": [5, 4, 5]},
+      "faces": {
+        "north": {"uv": [0, 0, 6, 4], "texture": "#2"},
+        "east": {"uv": [0, 0, 6, 4], "texture": "#2"},
+        "south": {"uv": [0, 0, 6, 4], "texture": "#2"},
+        "west": {"uv": [0, 0, 6, 4], "texture": "#2"},
+        "up": {"uv": [0, 0, 6, 6], "texture": "#2"},
+        "down": {"uv": [0, 0, 6, 6], "texture": "#2"}
+      }
+    }
+  ],
+  "display": {
+    "thirdperson_righthand": {
+      "scale": [0.5, 0.5, 0.5]
+    },
+    "thirdperson_lefthand": {
+      "scale": [0.5, 0.5, 0.5]
+    },
+    "firstperson_righthand": {
+      "scale": [0.5, 0.5, 0.5]
+    },
+    "firstperson_lefthand": {
+      "scale": [0.5, 0.5, 0.5]
+    },
+    "ground": {
+      "scale": [0.5, 0.5, 0.5]
+    },
+    "gui": {
+      "rotation": [30, -135, 0],
+      "scale": [0.625, 0.625, 0.625]
+    }
+  }
+}
