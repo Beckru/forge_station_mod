@@ -3,6 +3,7 @@ package net.beckru.forge_station_mod.block.entity.custom;
 import net.beckru.forge_station_mod.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -40,7 +41,7 @@ public class ForgeStationBasicEntity extends BlockEntity {
     }
 
     public float getRenderingRotation() {
-        rotation += 0.5f;
+        rotation += 0.3f;
         if (rotation > 360) {
             rotation = 0;
         }
@@ -69,14 +70,38 @@ public class ForgeStationBasicEntity extends BlockEntity {
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
 
-        tag.put("inventory", inventory.serializeNBT());
+        // Guardar los ítems como una lista "Items"
+        tag.putInt("Size", inventory.getSlots());
+
+        ListTag itemList = new ListTag();
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            ItemStack stack = inventory.getStackInSlot(i);
+            if (!stack.isEmpty()) {
+                CompoundTag itemTag = new CompoundTag();
+                itemTag.putByte("Slot", (byte) i);
+                stack.save(itemTag);
+                itemList.add(itemTag);
+            }
+        }
+        tag.put("Items", itemList);
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
 
-        inventory.deserializeNBT(tag.getCompound("inventory"));
+        inventory.setSize(tag.getInt("Size"));
+
+        ListTag itemList = tag.getList("Items", 10);
+        for (int i = 0; i < itemList.size(); i++) {
+            CompoundTag itemTag = itemList.getCompound(i);
+            int slot = itemTag.getByte("Slot") & 255;
+            ItemStack stack = ItemStack.of(itemTag);
+
+            if (slot >= 0 && slot < inventory.getSlots()) {
+                inventory.setStackInSlot(slot, stack);
+            }
+        }
     }
 
     // ---------- Sync con el cliente ----------
