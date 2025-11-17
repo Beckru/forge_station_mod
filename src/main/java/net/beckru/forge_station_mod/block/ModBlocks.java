@@ -1,6 +1,8 @@
 package net.beckru.forge_station_mod.block;
 
 import net.beckru.forge_station_mod.ForgeStation;
+import net.beckru.forge_station_mod.block.custom.forge_station_basic;
+import net.beckru.forge_station_mod.block.custom.forge_station_basic;
 import net.beckru.forge_station_mod.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -19,8 +21,15 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, ForgeStation.MOD_ID);
 
-    public static final RegistryObject<Block> PRUEBA = registerBlock("prueba",
+    /*public static final RegistryObject<Block> PRUEBA = registerBlock("prueba",
             () -> new Block(BlockBehaviour.Properties.of()
+                    .strength(4F)
+                    .sound(SoundType.ANVIL)
+                    .noCollission()
+            ));*/
+
+    public static final RegistryObject<Block> FORGESTATIONBASIC =registerBlock("forge_station_basic",
+            () -> new forge_station_basic(BlockBehaviour.Properties.of()
                     .strength(4F)
                     .sound(SoundType.ANVIL)
                     .noCollission()

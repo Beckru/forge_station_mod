@@ -2,6 +2,7 @@ package net.beckru.forge_station_mod;
 
 import com.mojang.logging.LogUtils;
 import net.beckru.forge_station_mod.block.ModBlocks;
+import net.beckru.forge_station_mod.block.entity.ModBlockEntities;
 import net.beckru.forge_station_mod.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
@@ -69,6 +70,7 @@ public class ForgeStation {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -88,7 +90,8 @@ public class ForgeStation {
 
 
         if(event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
-            event.accept(ModBlocks.PRUEBA);
+            //event.accept(ModBlocks.PRUEBA);
+            event.accept(ModBlocks.FORGESTATIONBASIC);
         }
         /*
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
