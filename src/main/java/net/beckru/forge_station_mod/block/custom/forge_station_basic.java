@@ -68,26 +68,38 @@ public class forge_station_basic extends BaseEntityBlock {
 
         if (level.getBlockEntity(pos) instanceof ForgeStationBasicEntity entity) {
 
-            // Insert item
-            if (entity.inventory.getStackInSlot(0).isEmpty() && !held.isEmpty()) {
+            // ---- INSERTAR ----
+            if (!held.isEmpty()) {
 
-                entity.inventory.insertItem(0, held.copy(), false);
-                held.shrink(1);
+                // SLOT 0 → solo si está vacío
+                if (entity.inventory.getStackInSlot(0).isEmpty()) {
+                    entity.inventory.insertItem(0, held.copy(), false);
+                    held.shrink(1);
+                    return InteractionResult.SUCCESS;
+                }
 
-                level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1f, 2f);
-                return InteractionResult.SUCCESS;
+                // SLOT 1 → stack completo
+                ItemStack leftover = entity.inventory.insertItem(1, held.copy(), false);
+                if (leftover.getCount() != held.getCount()) {
+                    held.setCount(leftover.getCount());
+                    return InteractionResult.SUCCESS;
+                }
             }
 
-            // Remove item
-            else if (held.isEmpty()) {
+            // ---- RETIRAR ----
+            else {
 
-                ItemStack extracted = entity.inventory.extractItem(0, 1, false);
+                // Primero sacar slot 0
+                ItemStack extracted0 = entity.inventory.extractItem(0, 1, false);
+                if (!extracted0.isEmpty()) {
+                    player.setItemInHand(hand, extracted0);
+                    return InteractionResult.SUCCESS;
+                }
 
-                if (!extracted.isEmpty()) {
-                    player.setItemInHand(hand, extracted);
-                    entity.clearContents();
-
-                    level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1f, 1f);
+                // Luego slot 1
+                ItemStack extracted1 = entity.inventory.extractItem(1, 64, false);
+                if (!extracted1.isEmpty()) {
+                    player.setItemInHand(hand, extracted1);
                     return InteractionResult.SUCCESS;
                 }
             }

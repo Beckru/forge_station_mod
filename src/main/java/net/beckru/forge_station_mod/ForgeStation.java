@@ -3,9 +3,11 @@ package net.beckru.forge_station_mod;
 import com.mojang.logging.LogUtils;
 import net.beckru.forge_station_mod.block.ModBlocks;
 import net.beckru.forge_station_mod.block.entity.ModBlockEntities;
+import net.beckru.forge_station_mod.block.entity.renderer.ForgeStationRenderer;
 import net.beckru.forge_station_mod.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -112,6 +114,11 @@ public class ForgeStation {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             // Some client setup code
+        }
+
+        @SubscribeEvent
+        public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
+            event.registerBlockEntityRenderer(ModBlockEntities.FORGESTATIONBASIC_BE.get(), ForgeStationRenderer::new);
         }
     }
 }

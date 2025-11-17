@@ -32,7 +32,7 @@ public class ModBlocks {
             () -> new forge_station_basic(BlockBehaviour.Properties.of()
                     .strength(4F)
                     .sound(SoundType.ANVIL)
-                    .noCollission()
+                    .noOcclusion()
             ));
 
     private static <T extends  Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {

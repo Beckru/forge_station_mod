@@ -17,11 +17,11 @@ import org.jetbrains.annotations.Nullable;
 
 public class ForgeStationBasicEntity extends BlockEntity {
 
-    public final ItemStackHandler inventory = new ItemStackHandler(1) {
+    public final ItemStackHandler inventory = new ItemStackHandler(2) {
 
         @Override
         protected int getStackLimit(int slot, @NotNull ItemStack stack) {
-            return 1;
+            return slot == 0 ? 1 : stack.getMaxStackSize();  // SLOT 0 = 1 unidad
         }
 
         @Override
@@ -33,12 +33,24 @@ public class ForgeStationBasicEntity extends BlockEntity {
         }
     };
 
+    private float rotation ;
+
     public ForgeStationBasicEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FORGESTATIONBASIC_BE.get(), pos, state);
     }
 
-    public void clearContents(){
+    public float getRenderingRotation() {
+        rotation += 0.5f;
+        if (rotation > 360) {
+            rotation = 0;
+        }
+        return rotation;
+    }
+    public void setRotation(float rotation) {}
+
+    public void clearContents() {
         inventory.setStackInSlot(0, ItemStack.EMPTY);
+        inventory.setStackInSlot(1, ItemStack.EMPTY);
     }
 
     public void drops(){
@@ -48,6 +60,7 @@ public class ForgeStationBasicEntity extends BlockEntity {
         }
         Containers.dropContents(this.level, this.worldPosition, inv);
     }
+
 
     // -------------------------------
     //    SERIALIZACIÓN 1.20.1
